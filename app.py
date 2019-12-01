@@ -15,8 +15,10 @@ def home():
         'localhost:5000/api/v1.0/precipitation<br/>'
         'localhost:5000/api/v1.0/stations<br/>'
         'localhost:5000/api/v1.0/tobs<br/>'
-        'localhost:5000/api/v1.0/<start><br/>'
-        'localhost:5000/api/v1.0/<start>/<end>'
+        'localhost:5000/api/v1.0/start :<br/>'
+        '**localhost:5000/api/v1.0/YYYY-mm-dd<br/>'
+        'localhost:5000/api/v1.0/start/end : <br/>'
+        '**localhost:5000/api/v1.0/YYYY-mm-dd/YYYY-mm-dd'
     )
 
 @app.route('/api/v1.0/precipitation')
