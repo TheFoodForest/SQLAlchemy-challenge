@@ -26,13 +26,22 @@ def precipitation():
     engine = create_engine('sqlite:///hawaii.sqlite')
     con = engine.connect()
     sql = '''
-    Select date, prcp from measurement
+    Select date, prcp, station from measurement
     order by date 
     '''
     data = pd.read_sql(sql=sql,con=con)
+    data['date'] = pd.to_datetime(data['date'])
+    last = data['date'].max()
+    year_back = last - pd.DateOffset(years=1)
+    data = data[['date','prcp','station']]
+    data = data.loc[(data['date'] >= year_back)&(data['date'] <= last)]
     responce = {}
     for index, row in data.iterrows():
-        responce["{}".format(row[0])] = row[1]
+        if row[2] not in responce:
+            responce[row[2]] = {}
+            responce[row[2]]["{}".format(row[0])] = row[1]
+        else:
+            responce[row[2]]["{}".format(row[0])] = row[1]
     return jsonify(responce)
 
 
